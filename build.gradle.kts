@@ -10,7 +10,6 @@ plugins {
 	`maven-publish`
 	signing
 	alias(libs.plugins.sonarqube)
-	alias(libs.plugins.license)
 	alias(libs.plugins.artifactory)
 	alias(libs.plugins.cyclonedx)
 }
@@ -34,7 +33,7 @@ java {
 }
 
 repositories {
-	maven("https://repox.jfrog.io/repox/sonarsource") {
+	maven("https://nexus.rssw.eu/repository/maven-public") {
 		if (artifactoryUsername.isNotEmpty() && artifactoryPassword.isNotEmpty()) {
 			credentials {
 				username = artifactoryUsername
@@ -48,22 +47,6 @@ repositories {
 			excludeGroupByRegex("com\\.sonarsource.*")
 		}
 	}
-}
-
-license {
-	header = rootProject.file("HEADER")
-	mapping(
-		mapOf(
-			"java" to "SLASHSTAR_STYLE",
-			"kt" to "SLASHSTAR_STYLE",
-			"svg" to "XML_STYLE",
-			"form" to "XML_STYLE"
-		)
-	)
-	excludes(
-		listOf("**/*.jar", "**/*.png", "**/README", "**/logback.xml")
-	)
-	strictCheck = true
 }
 
 val mockitoAgent = configurations.create("mockitoAgent")
