@@ -8,22 +8,3 @@ plugins {
 
 val isCiServer = System.getenv("CI") != null
 
-buildCache {
-    local {
-        isEnabled = !isCiServer
-    }
-    remote(develocity.buildCache) {
-        isEnabled = true
-        isPush = isCiServer
-    }
-}
-
-develocity {
-    server = "https://develocity.sonar.build"
-    buildScan {
-        publishing.onlyIf { isCiServer && it.isAuthenticated }
-        capture {
-            buildLogging.set(!startParameter.taskNames.contains("properties"))
-        }
-    }
-}
