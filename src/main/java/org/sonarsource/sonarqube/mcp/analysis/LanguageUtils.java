@@ -46,7 +46,7 @@ public class LanguageUtils {
     SUPPORTED_LANGUAGES_BY_PLUGIN_KEY.put("php", Set.of(Language.PHP));
     SUPPORTED_LANGUAGES_BY_PLUGIN_KEY.put("xml", Set.of(Language.XML));
     SUPPORTED_LANGUAGES_BY_PLUGIN_KEY.put("web", Set.of(Language.HTML, Language.CSS));
-    SUPPORTED_LANGUAGES_BY_PLUGIN_KEY.put("oe", Set.of(Language.OPENEDGE));
+    SUPPORTED_LANGUAGES_BY_PLUGIN_KEY.put("openedge", Set.of(Language.OPENEDGE));
   }
 
   public static Set<SonarLanguage> getSupportedSonarLanguages() {
