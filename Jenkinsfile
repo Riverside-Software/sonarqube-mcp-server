@@ -18,10 +18,11 @@ pipeline {
       steps {
         script {
           checkout([$class: 'GitSCM', branches: scm.branches, extensions: scm.extensions + [[$class: 'CleanCheckout']], userRemoteConfigs: scm.userRemoteConfigs])
-          docker.image('eclipse-temurin:21-jdk-ubi10-minimal').inside('') {
+          // docker.image('eclipse-temurin:21-jdk-ubi10-minimal').inside('') {
+          docker.image('gradle:8').inside('') {
             withEnv(["GRADLE_USER_HOME=/tmp/.gradle"]) {
               withSecrets() {
-                sh "./gradlew build"
+                sh "./gradlew build --continue"
               }
             }
           }
