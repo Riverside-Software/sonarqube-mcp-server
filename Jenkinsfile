@@ -22,7 +22,7 @@ pipeline {
           docker.image('gradle:8').inside('') {
             withEnv(["GRADLE_USER_HOME=/tmp/.gradle"]) {
               withSecrets() {
-                sh "./gradlew build --continue"
+                sh "./gradlew build"
               }
             }
           }
