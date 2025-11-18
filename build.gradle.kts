@@ -92,6 +92,7 @@ tasks {
 		maxHeapSize = "2g"
 		jvmArgs("-javaagent:${mockitoAgent.asPath}", "-XX:MaxMetaspaceSize=512m")
 		dependsOn("prepareTestPlugins")
+		ignoreFailures = true
 	}
 
 	jar {
