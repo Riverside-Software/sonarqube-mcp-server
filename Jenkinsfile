@@ -10,13 +10,19 @@ pipeline {
   stages {
     stage('🏗️ Standard build') {
       agent { label 'Linux-Office03' }
+      environment {
+        OP_CLI_PATH = '/usr/local/bin/'
+        ARTIFACTORY_PRIVATE_USERNAME = 'op://Jenkins/Nexus/username'
+        ARTIFACTORY_PRIVATE_PASSWORD = 'op://Jenkins/Nexus/password'
+      }
       steps {
         script {
           checkout([$class: 'GitSCM', branches: scm.branches, extensions: scm.extensions + [[$class: 'CleanCheckout']], userRemoteConfigs: scm.userRemoteConfigs])
-
           docker.image('eclipse-temurin:21-jdk-ubi10-minimal').inside('') {
             withEnv(["GRADLE_USER_HOME=/tmp/.gradle"]) {
-              sh "./gradlew build"
+              withSecrets() {
+                sh "./gradlew build"
+              }
             }
           }
         }
